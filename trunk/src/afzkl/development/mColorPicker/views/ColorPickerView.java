@@ -55,7 +55,7 @@ public class ColorPickerView extends View{
 	 * Change this if you got a black background for example, otherwise
 	 * it will look strange.
 	 */
-	private final static int SLIDER_TRACKER_COLOR = 0xff1c1c1c;
+	
 	
 	private final static int	PANEL_SAT_VAL = 0;
 	private final static int	PANEL_HUE = 1;
@@ -116,6 +116,7 @@ public class ColorPickerView extends View{
 	private float 		mSat = 0f;
 	private float 		mVal = 0f;
 	
+	private int 		mSliderTrackerColor = 0xff1c1c1c;
 	private int 		mBorderColor = 0xff6E6E6E;
 	private boolean		mShowAlphaPanel = false;
 	
@@ -193,12 +194,12 @@ public class ColorPickerView extends View{
 		mSatValTrackerPaint.setStrokeWidth(2f * mDensity);
 		mSatValTrackerPaint.setAntiAlias(true);
 		
-		mHueTrackerPaint.setColor(SLIDER_TRACKER_COLOR);
+		mHueTrackerPaint.setColor(mSliderTrackerColor);
 		mHueTrackerPaint.setStyle(Style.STROKE);
 		mHueTrackerPaint.setStrokeWidth(2f * mDensity);
 		mHueTrackerPaint.setAntiAlias(true);
 		
-		mAlphaTextPaint.setColor(SLIDER_TRACKER_COLOR);
+		mAlphaTextPaint.setColor(0xff1c1c1c);
 		mAlphaTextPaint.setTextSize(14f * mDensity);
 		mAlphaTextPaint.setAntiAlias(true);
 		mAlphaTextPaint.setTextAlign(Align.CENTER);
@@ -925,4 +926,15 @@ public class ColorPickerView extends View{
 		
 	}
 	
+	public void setSliderTrackerColor(int color){
+		mSliderTrackerColor = color;
+
+		mHueTrackerPaint.setColor(mSliderTrackerColor);		
+		
+		invalidate();
+	}
+	
+	public int getSliderTrackerColor(){
+		return mSliderTrackerColor;
+	}
 }

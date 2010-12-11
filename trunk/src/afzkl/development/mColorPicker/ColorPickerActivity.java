@@ -53,11 +53,12 @@ public class ColorPickerActivity extends Activity implements
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(ColorPickerActivity.this);
 
-		mColorPickerView = (ColorPickerView) findViewById(R.id.ColorPickerView);
-		mOldColorPanel = (ColorPanelView) findViewById(R.id.OldColorPanel);
-		mNewColorPanel = (ColorPanelView) findViewById(R.id.NewColorPanel);
-		mOkButton = (Button) findViewById(R.id.OkButton);
-		mCancelButton = (Button) findViewById(R.id.CancelButton);
+
+		mColorPickerView = (ColorPickerView) findViewById(R.id.color_picker_view);
+		mOldColorPanel = (ColorPanelView) findViewById(R.id.old_color_panel);
+		mNewColorPanel = (ColorPanelView) findViewById(R.id.new_color_panel);
+		mOkButton = (Button) findViewById(R.id.ok_button);
+		mCancelButton = (Button) findViewById(R.id.cancel_button);
 
 		((LinearLayout) mOldColorPanel.getParent()).setPadding(Math
 				.round(mColorPickerView.getDrawingOffset()), 0, Math
@@ -77,6 +78,10 @@ public class ColorPickerActivity extends Activity implements
 		mOldColorPanel.setColor(color);
 		mColorPickerView.setColor(color, true);
 		mColorPickerView.setAlphaSliderVisible(true);
+		mColorPickerView.setSliderTrackerColor(0xffCECECE);
+		mColorPickerView.setBorderColor(0xff7E7E7E);
+		mOldColorPanel.setBorderColor(mColorPickerView.getBorderColor());
+		mNewColorPanel.setBorderColor(mColorPickerView.getBorderColor());
 
 		mOkButton.setOnClickListener(this);
 		mCancelButton.setOnClickListener(this);
@@ -87,7 +92,7 @@ public class ColorPickerActivity extends Activity implements
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case R.id.OkButton:
+		case R.id.ok_button:
 
 			SharedPreferences customSharedPreference = PreferenceManager
 					.getDefaultSharedPreferences(ColorPickerActivity.this);
@@ -99,7 +104,7 @@ public class ColorPickerActivity extends Activity implements
 
 			break;
 
-		case R.id.CancelButton:
+		case R.id.cancel_button:
 
 			finish();
 

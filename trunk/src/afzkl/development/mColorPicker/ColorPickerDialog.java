@@ -57,7 +57,7 @@ public class ColorPickerDialog extends AlertDialog implements ColorPickerView.On
 		setView(layout);
 
 		setTitle("Pick a Color");
-		setIcon(android.R.drawable.ic_dialog_info);
+		//setIcon(android.R.drawable.ic_dialog_info);
 
 		mColorPicker = (ColorPickerView) layout
 				.findViewById(R.id.color_picker_view);
