@@ -19,16 +19,18 @@ package afzkl.development.mColorPicker;
 import afzkl.development.mColorPicker.views.ColorPanelView;
 import afzkl.development.mColorPicker.views.ColorPickerView;
 import android.app.Activity;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class ColorPickerActivity extends Activity implements
 		View.OnClickListener {
+
+	public final static String INTENT_DATA_INITIAL_COLOR = "color";
+	public final static String RESULT_COLOR = "color";
 
 	private ColorPickerView mColorPickerView;
 	private ColorPanelView mOldColorPanel;
@@ -45,15 +47,18 @@ public class ColorPickerActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_color_picker);
 
-		setUp();
+		Bundle b = getIntent().getExtras();
+		int initialColor = 0xff000000;
+
+		if (b != null) {
+			initialColor = b.getInt(INTENT_DATA_INITIAL_COLOR);
+		}
+
+		setUp(initialColor);
 
 	}
 
-	private void setUp() {
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(ColorPickerActivity.this);
-
-
+	private void setUp(int color) {
 		mColorPickerView = (ColorPickerView) findViewById(R.id.color_picker_view);
 		mOldColorPanel = (ColorPanelView) findViewById(R.id.old_color_panel);
 		mNewColorPanel = (ColorPanelView) findViewById(R.id.new_color_panel);
@@ -73,8 +78,6 @@ public class ColorPickerActivity extends Activity implements
 					}
 				});
 
-		int color = prefs.getInt("activity", 0xff308dbd);
-
 		mOldColorPanel.setColor(color);
 		mColorPickerView.setColor(color, true);
 		mColorPickerView.setAlphaSliderVisible(true);
@@ -85,7 +88,6 @@ public class ColorPickerActivity extends Activity implements
 
 		mOkButton.setOnClickListener(this);
 		mCancelButton.setOnClickListener(this);
-
 	}
 
 	@Override
@@ -94,18 +96,17 @@ public class ColorPickerActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.ok_button:
 
-			SharedPreferences customSharedPreference = PreferenceManager
-					.getDefaultSharedPreferences(ColorPickerActivity.this);
-			SharedPreferences.Editor editor = customSharedPreference.edit();
-			editor.putInt("activity", mColorPickerView.getColor());
-			editor.commit();
+			Intent i = new Intent();
+			i.putExtra(RESULT_COLOR, mColorPickerView.getColor());
 
+			setResult(Activity.RESULT_OK, i);
 			finish();
 
 			break;
 
 		case R.id.cancel_button:
 
+			setResult(Activity.RESULT_CANCELED);
 			finish();
 
 			break;

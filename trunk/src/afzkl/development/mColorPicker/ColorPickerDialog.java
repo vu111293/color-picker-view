@@ -26,13 +26,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
-public class ColorPickerDialog extends AlertDialog implements ColorPickerView.OnColorChangedListener{
+public class ColorPickerDialog extends AlertDialog implements
+		ColorPickerView.OnColorChangedListener {
 
 	private ColorPickerView mColorPicker;
 
 	private ColorPanelView mOldColor;
 	private ColorPanelView mNewColor;
-	
+
 	private OnColorChangedListener mListener;
 
 	protected ColorPickerDialog(Context context, int initialColor) {
@@ -57,7 +58,7 @@ public class ColorPickerDialog extends AlertDialog implements ColorPickerView.On
 		setView(layout);
 
 		setTitle("Pick a Color");
-		//setIcon(android.R.drawable.ic_dialog_info);
+		// setIcon(android.R.drawable.ic_dialog_info);
 
 		mColorPicker = (ColorPickerView) layout
 				.findViewById(R.id.color_picker_view);
@@ -69,30 +70,29 @@ public class ColorPickerDialog extends AlertDialog implements ColorPickerView.On
 				.round(mColorPicker.getDrawingOffset()), 0);
 
 		mColorPicker.setOnColorChangedListener(this);
-		
+
 		mOldColor.setColor(color);
 		mColorPicker.setColor(color, true);
-		
+
 	}
 
 	@Override
 	public void onColorChanged(int color) {
-	
+
 		mNewColor.setColor(color);
-			
-		if(mListener != null){
+
+		if (mListener != null) {
 			mListener.onColorChanged(color);
 		}
-		
+
 	}
 
-	
-	public void setAlphaSliderVisible(boolean visible){
+	public void setAlphaSliderVisible(boolean visible) {
 		mColorPicker.setAlphaSliderVisible(visible);
 	}
-	
-	public int getColor(){
+
+	public int getColor() {
 		return mColorPicker.getColor();
 	}
-	
+
 }
