@@ -21,6 +21,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -33,6 +34,7 @@ public class Main extends PreferenceActivity implements
 
 	private Preference mDialogPreference;
 	private Preference mActivityPreference;
+	private Preference mGetSourceCodePreference;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,9 +52,11 @@ public class Main extends PreferenceActivity implements
 
 		mDialogPreference = findPreference("dialog");
 		mActivityPreference = findPreference("activity");
+		mGetSourceCodePreference = findPreference("source_code");
 
 		mDialogPreference.setOnPreferenceClickListener(this);
 		mActivityPreference.setOnPreferenceClickListener(this);
+		mGetSourceCodePreference.setOnPreferenceClickListener(this);
 
 	}
 
@@ -100,6 +104,10 @@ public class Main extends PreferenceActivity implements
 			startActivityForResult(i, ACTIVITY_COLOR_PICKER_REQUEST_CODE);
 
 			return true;
+		}
+		else if(key.equals("source_code")){
+			Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://code.google.com/p/color-picker-view/"));
+			startActivity(i);
 		}
 
 		return false;
