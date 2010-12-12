@@ -204,7 +204,7 @@ public class ColorPickerView extends View{
 		mAlphaTextPaint.setAntiAlias(true);
 		mAlphaTextPaint.setTextAlign(Align.CENTER);
 		mAlphaTextPaint.setFakeBoldText(true);
-		
+	
 		
 	}
 	
