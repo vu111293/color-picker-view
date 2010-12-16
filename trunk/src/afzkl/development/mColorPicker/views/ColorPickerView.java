@@ -47,16 +47,7 @@ public class ColorPickerView extends View{
 	public interface OnColorChangedListener{
 		public void onColorChanged(int color);		
 	}
-	
-	private final static String	ALPHA_TEXT = "Alpha";
-	
-	/**
-	 * The color used for the tracker in the hue and alpha sliders.
-	 * Change this if you got a black background for example, otherwise
-	 * it will look strange.
-	 */
-	
-	
+		
 	private final static int	PANEL_SAT_VAL = 0;
 	private final static int	PANEL_HUE = 1;
 	private final static int	PANEL_ALPHA = 2;
@@ -116,6 +107,7 @@ public class ColorPickerView extends View{
 	private float 		mSat = 0f;
 	private float 		mVal = 0f;
 	
+	private String		mAlphaSliderText = "Alpha";	
 	private int 		mSliderTrackerColor = 0xff1c1c1c;
 	private int 		mBorderColor = 0xff6E6E6E;
 	private boolean		mShowAlphaPanel = false;
@@ -337,8 +329,8 @@ public class ColorPickerView extends View{
 		
 		canvas.drawRect(rect, mAlphaPaint);
 		
-		if(ALPHA_TEXT != null && ALPHA_TEXT != ""){
-			canvas.drawText(ALPHA_TEXT, rect.centerX(), rect.centerY() + 4 * mDensity, mAlphaTextPaint);
+		if(mAlphaSliderText != null && mAlphaSliderText!= ""){
+			canvas.drawText(mAlphaSliderText, rect.centerX(), rect.centerY() + 4 * mDensity, mAlphaTextPaint);
 		}
 		
 		float rectWidth = 4 * mDensity / 2;
@@ -933,5 +925,35 @@ public class ColorPickerView extends View{
 	
 	public int getSliderTrackerColor(){
 		return mSliderTrackerColor;
+	}
+	
+	/**
+	 * Set the text that should be shown in the 
+	 * alpha slider. Set to null to disable text.
+	 * @param res string resource id.
+	 */
+	public void setAlphaSliderText(int res){		
+		String text = getContext().getString(res);
+		setAlphaSliderText(text);
+	}
+	
+	/**
+	 * Set the text that should be shown in the 
+	 * alpha slider. Set to null to disable text.
+	 * @param text Text that should be shown.
+	 */
+	public void setAlphaSliderText(String text){
+		mAlphaSliderText = text;
+		invalidate();
+	}
+
+	/**
+	 * Get the current value of the text
+	 * that will be shown in the alpha
+	 * slider.
+	 * @return
+	 */
+	public String getAlphaSliderText(){
+		return mAlphaSliderText;
 	}
 }
